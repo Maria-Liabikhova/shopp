@@ -1,19 +1,32 @@
 <template>
   <div>
-    <v-navigation-drawer app  temporary><h1>HELLO</h1></v-navigation-drawer>
+    <v-navigation-drawer app  temporary v-model="sideNav">
+       <v-list>
+        <v-list-item
+        v-for="(link, i) in links"
+        :key="i"
+        :to="link.url"
+        >
+          <v-list-item-icon>
+            <v-icon>{{link.icon}}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="link.title"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-app-bar app>
       <v-toolbar dense color="green">
-        <v-app-bar-nav-icon color="#9c0202"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav"></v-app-bar-nav-icon>
         <v-toolbar-title class="white--text">Online Store</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon color="#9c0202">mdi-magnify</v-icon>
-        </v-btn>
-        <v-btn icon color="#9c0202">
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon color="#9c0202">mdi-dots-vertical</v-icon>
+        <v-btn text color="#9c0202"
+        v-for="(link, i) in links"
+        :key="i"
+        :to="link.url"
+        >
+          <v-icon color="#9c0202" left>{{link.icon}}</v-icon>{{ link.title }}
         </v-btn>
       </v-toolbar>
     </v-app-bar>
@@ -25,6 +38,17 @@
 
 <script>
 export default {
-  
+  data () {
+    return {
+      sideNav: false,
+      links: [
+        { title: 'login', icon: 'mdi-account-box', url: '/login'},
+        { title: 'Register', icon: 'mdi-face', url: '/registern'},
+        { title: 'Cart', icon: 'mdi-cart', url: '/checkout'},
+        { title: 'New Product', icon: 'mdi-cart-plus', url: '/new'},
+        { title: 'My Product', icon: 'mdi-playlist-edit', url: '/list'},
+      ]
+    }
+  }
 }
 </script>
