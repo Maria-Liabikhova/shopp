@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer app  temporary v-model="sideNav">
+    <v-navigation-drawer app  temporary v-model="sideNav" >
        <v-list>
         <v-list-item
         v-for="(link, i) in links"
@@ -18,13 +18,14 @@
     </v-navigation-drawer>
     <v-app-bar app>
       <v-toolbar dense color="green">
-        <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title class="white--text">Online Store</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn text color="#9c0202"
         v-for="(link, i) in links"
         :key="i"
         :to="link.url"
+        class="hidden-sm-and-down"
         >
           <v-icon color="#9c0202" left>{{link.icon}}</v-icon>{{ link.title }}
         </v-btn>
