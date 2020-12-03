@@ -19,7 +19,15 @@
     <v-app-bar app>
       <v-toolbar dense color="green">
         <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav" class="hidden-md-and-up"></v-app-bar-nav-icon>
-        <v-toolbar-title class="white--text">Online Store</v-toolbar-title>
+        <v-toolbar-title class="white--text">
+          <router-link
+          to="/"
+          class="pointer"
+          tag="span"
+          >
+            Online Store
+          </router-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn text color="#9c0202"
         v-for="(link, i) in links"
@@ -53,3 +61,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .pointer {
+    cursor: pointer;
+  }
+</style>
