@@ -21,21 +21,23 @@ const routes = [
     component: () => import('../components/Products/NewProduct.vue')
   },
   {
-    path:('/product/:id'),
-    component:() => import('../components/Products/Product.vue')
+    path:'/product/:id',
+    props: true,
+    component: () => import('../components/Products/Product.vue')
   },
   {
-    path:('/list'),
-    component:() => import('../components/Products/ProductList.vue')
+    path:'/list',
+    component: () => import('../components/Products/ProductList.vue')
   },
   {
-    path:('/checkout'),
-    component:() => import('../components/User/Checkout.vue')
+    path:'/checkout',
+    component: () => import('../components/User/Checkout.vue')
   }
 ];
 
 const router = new VueRouter({
   mode: "history",
+  props: true,
   base: process.env.BASE_URL,
   routes
 })
