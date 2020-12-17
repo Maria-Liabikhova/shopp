@@ -5,10 +5,9 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import firebase from 'firebase/app';
 
-// Vue.config.productionTip = false;
+Vue.config.productionTip = false;
 
 new Vue({
-  // el: '#app',
   router,
   store,
   vuetify,
@@ -24,7 +23,13 @@ new Vue({
       measurementId: 'G-Q4450Q9M30'
     }
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig)
+    firebase.initializeApp(firebaseConfig),
+    // firebase.analytics()
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoLoginUser', user)
+      }
+    })
   }
 })
 .$mount('#app');

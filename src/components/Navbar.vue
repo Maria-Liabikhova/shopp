@@ -14,6 +14,16 @@
             <v-list-item-title v-text="link.title"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+        @click="onLogout"
+        v-if="isUserLoggedIn">
+          <v-list-item-icon>
+            <v-icon>mdi-account-arrow-right-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="'Logout'"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
@@ -21,7 +31,7 @@
         <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title class="white--text">
           <router-link
-          to="/"
+          to='/'
           class="pointer"
           tag="span"
           >
@@ -37,6 +47,12 @@
         >
           <v-icon color="#9c0202" left>{{link.icon}}</v-icon>{{ link.title }}
         </v-btn>
+        <v-btn text color="#9c0202"
+        @click="onLogout"
+        v-if="isUserLoggedIn"
+        >
+          <v-icon color="#9c0202">mdi-account-arrow-right-outline</v-icon>Logout
+        </v-btn>
       </v-toolbar>
     </v-app-bar>
     <v-main>
@@ -49,13 +65,30 @@
 export default {
   data () {
     return {
-      sideNav: false,
-      links: [
+      sideNav: false
+    }
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch('logoutUser')
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    isUserLoggedIn () {
+      return this.$store.getters.isUserLoggedIn
+    },
+    links () {
+      if (this.isUserLoggedIn) {
+        return [
+          { title: 'Cart', icon: 'mdi-cart', url: '/checkout'},
+          { title: 'New Product', icon: 'mdi-cart-plus', url: '/new'},
+          { title: 'My Product', icon: 'mdi-playlist-edit', url: '/list'}
+        ]
+      }
+      return [
         { title: 'login', icon: 'mdi-account-box', url: '/login'},
-        { title: 'Register', icon: 'mdi-face', url: '/registern'},
-        { title: 'Cart', icon: 'mdi-cart', url: '/checkout'},
-        { title: 'New Product', icon: 'mdi-cart-plus', url: '/new'},
-        { title: 'My Product', icon: 'mdi-playlist-edit', url: '/list'},
+        { title: 'Register', icon: 'mdi-face', url: '/registern'}
       ]
     }
   }

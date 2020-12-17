@@ -10,7 +10,6 @@
         :value="true"
       >
         {{ error }}
-
         <v-btn
           dark
           @click.native="closeError"

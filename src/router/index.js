@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import AuthGuard from './auth_guard'
 
 Vue.use(VueRouter);
 
@@ -18,7 +19,8 @@ const routes = [
   },
   {
     path: '/new',
-    component: () => import('../components/Products/NewProduct.vue')
+    component: () => import('../components/Products/NewProduct.vue'),
+    beforeEnter: AuthGuard
   },
   {
     path:'/product/:id',
@@ -27,11 +29,13 @@ const routes = [
   },
   {
     path:'/list',
-    component: () => import('../components/Products/ProductList.vue')
+    component: () => import('../components/Products/ProductList.vue'),
+    beforeEnter: AuthGuard
   },
   {
     path:'/checkout',
-    component: () => import('../components/User/Checkout.vue')
+    component: () => import('../components/User/Checkout.vue'),
+    beforeEnter: AuthGuard
   }
 ];
 
