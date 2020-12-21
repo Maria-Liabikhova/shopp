@@ -41,7 +41,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn text rounded outlined small :to="'/product/'+ product.id">Description</v-btn>
-              <v-btn  color="green" small text outlined rounded>Add  to card</v-btn>
+              <v-btn  color="green" small text outlined rounded>Add to card</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
