@@ -122,7 +122,7 @@ export default {
           description: this.description,
           promo:  this.promo,
           valid:  this.valid,
-          imageSrc: 'https://image.ibb.co/fZzq1o/Lenovo_Legion_Y520.jpg',
+          imageSrc: 'https://image.ibb.co/mrOsgo/Acer_Swift_5.jpg',
         }
         this.$store.dispatch('createProduct', product)
         .then(()=> {

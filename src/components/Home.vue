@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <v-container fluid>
       <v-row>
         <v-col  sm='12'>
@@ -48,6 +48,20 @@
       </v-row>
     </v-container>
   </div>
+  <div v-else>
+    <v-container>
+      <v-row>
+        <v-col xs="12" class="text-center pt-5">
+          <v-progress-circular
+            :size="100"
+            :width="4"
+            indeterminate
+            color="purple"
+          ></v-progress-circular>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -58,6 +72,9 @@ export default {
     },
     products () {
       return this.$store.getters.products
+    },
+    loading() {
+      return this.$store.getters.loading
     }
   }
 }
