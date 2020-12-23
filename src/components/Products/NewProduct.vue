@@ -54,16 +54,24 @@
         <v-row  class="mb-3">
           <v-col xs='12'>
             <v-btn
+            @click="upload"
             color="warning"
             >
               Upload
               <v-icon right dark >mdi-cloud-upload</v-icon>
             </v-btn>
+            <input 
+              ref="fileInput" 
+              type="file" 
+              style="display: none" 
+              accept="image/*"
+              @change="onFileChange"
+            >
           </v-col>
         </v-row>
         <v-row>
           <v-col xs='12'>
-            <img src="" height="200px">
+            <img :src="imageSrc" height="200px" v-if="imageSrc">
           </v-col>
         </v-row>
         <v-row>
@@ -80,7 +88,7 @@
             <v-spacer></v-spacer>
             <v-btn
             :loading="loading"
-            :disabled="!valid || loading"
+            :disabled="!valid || !image || loading"
             class="succrss"
             @click="createProduct"
             >Create product</v-btn>
@@ -102,7 +110,9 @@ export default {
     price: '0',
     description: '',
     promo: false,
-    valid: false
+    valid: false,
+    image: null,
+    imageSrc: ''
     }
   },
   computed: {
@@ -112,7 +122,7 @@ export default {
   },
   methods: {
     createProduct(){
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && this.image) {
         const product = {
           title: this.title,
           vendor: this.vendor,
@@ -121,8 +131,7 @@ export default {
           price: this.price,
           description: this.description,
           promo:  this.promo,
-          valid:  this.valid,
-          imageSrc: 'https://image.ibb.co/mrOsgo/Acer_Swift_5.jpg',
+          image: this.image,
         }
         this.$store.dispatch('createProduct', product)
         .then(()=> {
@@ -130,6 +139,18 @@ export default {
         })
         .catch(() => {})
       }
+    },
+    upload () {
+      this.$refs.fileInput.click()
+    },
+    onFileChange(event) {
+      const file = event.target.files[0]
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.imageSrc = reader.result
+      }
+      reader.readAsDataURL(file)
+      this.image = file
     }
   }
 }
