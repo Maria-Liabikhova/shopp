@@ -17,7 +17,7 @@ class Product {
 
 export default {
   state: {
-    products: [
+    products: []
       // {
       //   id: '1',
       //   title: 'Lenovo Legion Y520',
@@ -84,7 +84,6 @@ export default {
       //   promo: true,
       //   imageSrc: 'https://image.ibb.co/fxDsgo/Apple_macbook.jpg',
       // },
-    ]
   },
   mutations: {
     createProduct (state, payload) {
@@ -113,7 +112,7 @@ export default {
 
         const product = await firebase.database().ref('products').push(newProduct)
         const imageExt = image.name.slice(image.name.lastIndexOf('.'))
-        const fileData = await firebase.storage().ref(`products/${product.key}.${imageExt}`).put(image)
+        const fileData = await firebase.storage().ref('products/${product.key}.${imageExt}').put(image)
         const imageSrc = await firebase.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
         await firebase.database().ref('products').child(product.key).update({ imageSrc })
         // console.log(product)
@@ -139,7 +138,7 @@ export default {
         Object.keys(products).forEach(key => {
           const product = products[key]
           resultProducts.push(
-            new Product(
+            new Product( 
               product.title,
               product.vendor,
               product.color,
