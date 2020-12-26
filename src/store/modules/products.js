@@ -112,15 +112,15 @@ export default {
 
         const product = await firebase.database().ref('products').push(newProduct)
         const imageExt = image.name.slice(image.name.lastIndexOf('.'))
-        const fileData = await firebase.storage().ref('products/${product.key}.${imageExt}').put(image)
+        // const fileData = await firebase.storage().ref(`products/${product.key}.${imageExt}`).put(image) MISTAKE version
+        const fileData = await firebase.storage().ref(`products/${product.key}${imageExt}`).put(image) //CORRECTED version
         const imageSrc = await firebase.storage().ref().child(fileData.ref.fullPath).getDownloadURL()
         await firebase.database().ref('products').child(product.key).update({ imageSrc })
-        // console.log(product)
         commit ('setLoading', false)
         commit('createProduct', {
           ...newProduct,
           id: product.key,
-          imageSrc
+          imageSrc: imageSrc
         })
       } catch (error) {
         commit('setError', error.mesage)
@@ -134,6 +134,7 @@ export default {
       const resultProducts = []
       try {
         const productsVal = await firebase.database().ref('products').once('value')
+        console.log("productsVal.val(): ", productsVal.val())
         const products = productsVal.val()
         Object.keys(products).forEach(key => {
           const product = products[key]
