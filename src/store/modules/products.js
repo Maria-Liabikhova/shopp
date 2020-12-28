@@ -91,6 +91,13 @@ export default {
     },
     loadProducts (state, payload) {
       state.products = payload
+    },
+    updateProduct (state, {title, description, id}) {
+      const product = state.products.find(a => {
+        return a.id ===id
+      })
+      product.title = title
+      product.description = description
     }
   },
   actions: {
@@ -158,6 +165,27 @@ export default {
         commit('setLoading', false)
         throw error
       }
+    },
+    async updateProduct ({commit}, {title, description, id}) {
+      commit('clearError')
+      commit('setLoading', true)
+      try {
+        await firebase.database().ref('products').child(id).update({
+          title,
+          description
+        })
+        commit('updateProduct', {
+          title,
+          description,
+          id
+        })
+        commit('setLoading', false)
+
+      } catch (error) {
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
+      }
     }
   },
   getters: {
@@ -169,8 +197,10 @@ export default {
         return product.promo
       })
     },
-    myProducts (state) {
-      return state.products
+    myProducts (state, getters) {
+      return state.products.filter(product => {
+        return product.ownerId === getters.user.id
+      })
     },
     productById (state) {
       return productId => {

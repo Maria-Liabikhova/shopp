@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <section class="product mt-3 elevation-10">
+    <section class="product mt-3 elevation-10" v-if="!loading">
       <v-row wrap>
         <v-col xs="12" lg="6">
           <v-img :src="product.imageSrc" class="product_img"></v-img>
@@ -31,11 +31,19 @@
               {{product.description}}
             </div>
             <!-- <v-btn color="success" class="headline" >Edit</v-btn> -->
-            <EditProduct/>
+            <EditProduct :product="product" v-if="isOwner"/>
             <v-btn color="success" class="headline ml-3">Buy</v-btn>
           </div>
         </v-col>
       </v-row>
+    </section>
+    <section v-else class="text-center">
+      <v-progress-circular
+        :size="100"
+        :width="4"
+        indeterminate
+        color="purple"
+      ></v-progress-circular>
     </section>
   </v-container>
 </template>
@@ -48,6 +56,12 @@ export default {
     product () {
       const id = this.id
       return this.$store.getters.productById(id)
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+    isOwner () {
+      return this.product.ownerId === this.$store.getters.user.id
     }
   },
   components: {

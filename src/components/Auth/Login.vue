@@ -5,7 +5,6 @@
         <v-card class="elevation-24">
           <v-toolbar dark color="#9c0202">
             <v-toolbar-title>Login form</v-toolbar-title>
-            <!-- <v-spacer></v-spacer> -->
           </v-toolbar>
           <v-card-text>
             <v-form ref="form" v-model="valid">
