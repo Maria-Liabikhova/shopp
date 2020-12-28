@@ -30,7 +30,8 @@
               <p class="product_title mb-2">Discription</p>
               {{product.description}}
             </div>
-            <v-btn color="success" class="headline">Edit</v-btn>
+            <!-- <v-btn color="success" class="headline" >Edit</v-btn> -->
+            <EditProduct/>
             <v-btn color="success" class="headline ml-3">Buy</v-btn>
           </div>
         </v-col>
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+import EditProduct from './EditProduct'
 export default {
   props: ['id'],
   computed: {
@@ -47,6 +49,9 @@ export default {
       const id = this.id
       return this.$store.getters.productById(id)
     }
+  },
+  components: {
+    EditProduct
   }
 }
 </script>
