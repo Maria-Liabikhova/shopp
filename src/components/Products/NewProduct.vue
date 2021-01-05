@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col xs='12' sm='6' offset-sm='3'>
-        <h1 class="text-secondary mb-3">Create new product</h1>
+        <h1 class="text-secondary mb-3" :class="{mobile:isMobile}">Create new product</h1>
         <v-form ref="form" v-model="valid">
           <v-text-field 
           name="title" 
@@ -118,6 +118,9 @@ export default {
   computed: {
     loading() {
       return this.$store.getters.loading
+    },
+    isMobile() {
+      return this.$store.getters.isMobile
     }
   },
   methods: {
@@ -151,7 +154,13 @@ export default {
       }
       reader.readAsDataURL(file)
       this.image = file
-    }
+    },
   }
 }
 </script>
+
+<style scoped>
+  .mobile {
+    font-family: cursive;
+  }
+</style>

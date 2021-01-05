@@ -27,13 +27,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
-      <v-toolbar dense color="green">
+      <v-toolbar dense class='error' :class="{success:isMobile}">
         <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title class="white--text">
           <router-link
           to='/'
           class="pointer"
           tag="span"
+          :class="{mobile:isMobile}"
           >
             Online Store
           </router-link>
@@ -90,6 +91,9 @@ export default {
         { title: 'login', icon: 'mdi-account-box', url: '/login'},
         { title: 'Register', icon: 'mdi-face', url: '/registern'}
       ]
+    },
+    isMobile() {
+      return this.$store.getters.isMobile
     }
   }
 }
@@ -98,5 +102,9 @@ export default {
 <style scoped>
   .pointer {
     cursor: pointer;
+  }
+
+  .mobile {
+    border: 1px solid yellowgreen
   }
 </style>
