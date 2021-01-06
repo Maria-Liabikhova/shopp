@@ -27,14 +27,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
-      <v-toolbar dense class='error' :class="{success:isMobile}">
+      <v-toolbar dense :class="{mobile:isMobile, desktop:!isMobile}">
         <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title class="white--text">
           <router-link
           to='/'
           class="pointer"
           tag="span"
-          :class="{mobile:isMobile}"
+          :class="{mobile:isMobile, desktop:!isMobile}"
           >
             Online Store
           </router-link>
@@ -66,14 +66,14 @@
 export default {
   data () {
     return {
-      sideNav: false
+      sideNav: false,
     }
   },
   methods: {
     onLogout() {
       this.$store.dispatch('logoutUser')
       this.$router.push('/')
-    }
+    },
   },
   computed: {
     isUserLoggedIn () {
@@ -94,7 +94,7 @@ export default {
     },
     isMobile() {
       return this.$store.getters.isMobile
-    }
+    },
   }
 }
 </script>
@@ -102,9 +102,5 @@ export default {
 <style scoped>
   .pointer {
     cursor: pointer;
-  }
-
-  .mobile {
-    border: 1px solid yellowgreen
   }
 </style>

@@ -2,7 +2,7 @@ export default {
   state: {
     loading: false,
     error: null,
-    isMobile: " "
+    isMobile: " ",
   },
   mutations: {
     setLoading (state, payload) {
@@ -16,7 +16,7 @@ export default {
     },
     getMobile (state, payload) {
       state.isMobile = payload
-    }
+    },
   },
   actions: {
     setLoading ({commit}, payload) {
@@ -30,7 +30,7 @@ export default {
     },
     setMobile ({commit}, payload) {
       commit('getMobile' , payload)
-    }
+    },
   },
   getters: {
     loading (state){
@@ -41,6 +41,6 @@ export default {
     },
     isMobile(state) {
       return state.isMobile
-    }
+    },
   }
 }

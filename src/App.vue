@@ -33,9 +33,8 @@ export default {
       this.$store.dispatch('clearError')
     },
     onResize() {
-      this.isMobile = window.innerWidth > 991 ? false : true;
-      this.$store.dispatch('setMobile', this.isMobile)
-    }
+      this.$store.dispatch('setMobile', this.isMobile= window.innerWidth > 991 ? true :  false);
+    },
   },
   computed: {
     error () {
@@ -44,3 +43,18 @@ export default {
   },
 }
 </script>
+
+<style>
+  .mobile {
+    font-family: cursive;
+    border: 1px solid rgb(162, 141, 70);
+    background-color: green !important;
+  }
+  .desktop {
+    background-color: salmon !important;
+    border: 2px solid yellowgreen;
+    border-radius: 10px;
+    font-family: fantasy;
+    color: indigo 
+  }
+</style>
