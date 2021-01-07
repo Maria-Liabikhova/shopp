@@ -33,7 +33,7 @@ export default {
       this.$store.dispatch('clearError')
     },
     onResize() {
-      this.$store.dispatch('setMobile', this.isMobile= window.innerWidth > 991 ? true :  false);
+      this.$store.dispatch('setMobile', this.isMobile= window.innerWidth > 991 ? "desktop" : "mobile");
     },
   },
   computed: {
