@@ -40,7 +40,7 @@ export default {
         else if ( screen > 767 && screen <= 991) return "middle";
         else return "large";
       }
-      this.$store.dispatch('setMobile', this.isMobile= isMob())
+      this.$store.dispatch('setMobile', isMob())
     },
   },
   computed: {
