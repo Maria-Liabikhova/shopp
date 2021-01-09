@@ -33,14 +33,12 @@ export default {
       this.$store.dispatch('clearError')
     },
     onResize() {
-      function isMob() {
-        let screen = window.innerWidth;
-        if ( screen <= 319 ) return "mobile";
-        else if ( screen > 319 && screen <= 767) return "small";
-        else if ( screen > 767 && screen <= 991) return "middle";
-        else return "large";
-      }
-      this.$store.dispatch('setMobile', isMob())
+      function isSize() {
+        if (window.innerWidth <= 319) return "xs";
+        if (window.innerWidth > 319 && window.innerWidth <= 767) return "sm";
+        if (window.innerWidth > 767 && window.innerWidth <= 991) return "lg" ;
+        return "xl"}
+      this.$store.dispatch('setMobile', isSize())
     },
   },
   computed: {
@@ -52,25 +50,25 @@ export default {
 </script>
 
 <style>
-  .mobile {
+  .xs {
     font-family: cursive;
     border: 1px solid rgb(162, 141, 70);
     background-color: green !important;
   }
-  .small {
+  .sm {
     background-color: salmon !important;
     border: 2px solid yellowgreen;
     border-radius: 10px;
     font-family: fantasy;
     color: indigo 
   }
-  .middle {
+  .lg {
     background-color: rgb(144, 27, 173) !important;
     border: 2px solid rgb(199, 22, 60);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: rgb(108, 215, 242) 
   }
-  .large {
+  .xl {
     background-color: rgb(243, 189, 183) !important;
     border-bottom: 3px dashed rgb(104, 50, 205);
     font-family: Verdana, Geneva, Tahoma, sans-serif;

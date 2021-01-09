@@ -2,7 +2,7 @@ export default {
   state: {
     loading: false,
     error: null,
-    isMobile: " ",
+    resizeClass: " ",
   },
   mutations: {
     setLoading (state, payload) {
@@ -15,7 +15,7 @@ export default {
       state.error = null
     },
     getMobile (state, payload) {
-      state.isMobile = payload
+      state.resizeClass = payload
     },
   },
   actions: {
@@ -39,8 +39,8 @@ export default {
     error (state){
       return state.error
     },
-    isMobile(state) {
-      return state.isMobile
+    resizeClass(state) {
+      return state.resizeClass
     },
   }
 }

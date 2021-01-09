@@ -27,14 +27,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
-      <v-toolbar dense  :class="[isMobile]">
+      <v-toolbar dense  :class="[resizeClass]">
         <v-app-bar-nav-icon color="#9c0202" @click="sideNav = !sideNav" class="hidden-md-and-up"></v-app-bar-nav-icon>
         <v-toolbar-title class="white--text">
           <router-link
           to='/'
           class="pointer"
           tag="span"
-          :class="[isMobile]"
+          :class="[resizeClass]"
           >
             Online Store
           </router-link>
@@ -92,8 +92,8 @@ export default {
         { title: 'Register', icon: 'mdi-face', url: '/registern'}
       ]
     },
-    isMobile() {
-      return this.$store.getters.isMobile
+    resizeClass() {
+      return this.$store.getters.resizeClass
     },
   }
 }
