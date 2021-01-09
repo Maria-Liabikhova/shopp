@@ -34,10 +34,12 @@ export default {
     },
     onResize() {
       function isSize() {
-        if (window.innerWidth <= 319) return "xs";
-        if (window.innerWidth > 319 && window.innerWidth <= 767) return "sm";
-        if (window.innerWidth > 767 && window.innerWidth <= 991) return "lg" ;
-        return "xl"}
+        if (window.innerWidth < 600) return "xs"
+        if (window.innerWidth >= 600  && window.innerWidth < 960 ) return "sm"
+        if (window.innerWidth >=  960 && window.innerWidth < 1264) return "md"
+        if (window.innerWidth >= 1264 && window.innerWidth < 1904) return "lg"
+        return "xl"
+      }
       this.$store.dispatch('setMobile', isSize())
     },
   },
@@ -61,6 +63,12 @@ export default {
     border-radius: 10px;
     font-family: fantasy;
     color: indigo 
+  }
+  .md {
+    background-color: rgb(114, 168, 250) !important;
+    border: 5px dashed rgb(201, 113, 111);
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(130, 0, 39) 
   }
   .lg {
     background-color: rgb(144, 27, 173) !important;
