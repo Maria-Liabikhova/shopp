@@ -35,12 +35,12 @@ export default {
     onResize() {
       function isSize() {
         if (window.innerWidth < 600) return "xs"
-        if (window.innerWidth >= 600  && window.innerWidth < 960 ) return "sm"
-        if (window.innerWidth >=  960 && window.innerWidth < 1264) return "md"
-        if (window.innerWidth >= 1264 && window.innerWidth < 1904) return "lg"
+        if (window.innerWidth < 960) return "sm"
+        if (window.innerWidth < 1264) return "md"
+        if (window.innerWidth < 1904) return "lg"
         return "xl"
       }
-      this.$store.dispatch('setMobile', isSize())
+      this.$store.dispatch('setMobile', isSize() )
     },
   },
   computed: {
