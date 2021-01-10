@@ -33,14 +33,12 @@ export default {
       this.$store.dispatch('clearError')
     },
     onResize() {
-      function isSize() {
-        if (window.innerWidth < 600) return "xs"
-        if (window.innerWidth < 960) return "sm"
-        if (window.innerWidth < 1264) return "md"
-        if (window.innerWidth < 1904) return "lg"
-        return "xl"
-      }
-      this.$store.dispatch('setMobile', isSize() )
+      let isSize = (window.innerWidth < 600) ? "xs" : 
+        (window.innerWidth < 960) ? "sm" : 
+        (window.innerWidth < 1264) ? "md" : 
+        (window.innerWidth < 1904) ? "lg" :
+        "xl";
+      this.$store.dispatch('setMobile', isSize)
     },
   },
   computed: {
