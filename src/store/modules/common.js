@@ -2,7 +2,7 @@ export default {
   state: {
     loading: false,
     error: null,
-    resizeClass: " ",
+    resizeClass: "",
   },
   mutations: {
     setLoading (state, payload) {
@@ -14,7 +14,7 @@ export default {
     clearError (state) {
       state.error = null
     },
-    getMobile (state, payload) {
+    getSize (state, payload) {
       state.resizeClass = payload
     },
   },
@@ -28,8 +28,14 @@ export default {
     clearError ({commit}) {
       commit('clearError')
     },
-    setMobile ({commit}, payload) {
-      commit('getMobile' , payload)
+    setSize ({commit}, screenSize) {
+      let className = ""
+        if (screenSize >= 1904) className= "xl"
+        if (screenSize < 1904) className= "lg"
+        if (screenSize < 1264) className= "md"
+        if (screenSize < 960) className= "sm"
+        if (screenSize  < 600) className ="xs"
+      commit('getSize' , className)
     },
   },
   getters: {
