@@ -94,7 +94,4 @@ export default {
     color: rgb(137, 10, 10);
     font-size: 18px;
   }
-  /* .card__img {
-    height: 120px;
-  } */
 </style>

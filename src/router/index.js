@@ -36,7 +36,11 @@ const routes = [
     path:'/checkout',
     component: () => import('../components/User/Checkout.vue'),
     beforeEnter: AuthGuard
-  }
+  },
+  {
+    path: '/users',
+    component: () => import ('../components/User/Users.vue')
+  } 
 ];
 
 const router = new VueRouter({
