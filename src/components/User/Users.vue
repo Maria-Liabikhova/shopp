@@ -2,46 +2,8 @@
   <div v-if="!loading">
     <v-container fluid>
       <v-row>
-        <v-col cols="4" xs='4' sm='4' md='3'>
-          <v-card
-          class="mx-auto"
-            height="100%"
-          >
-            <v-navigation-drawer
-              absolute
-              dark
-              src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
-              width="100%"
-              permanent
-            >
-              <div class="text-center menu">
-                <v-menu offset-y open-on-hover>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      color="primary"
-                      dark
-                      v-bind="attrs"
-                      v-on="on"
-                      
-                    >
-                      Choose users
-                    </v-btn>
-                  </template>
-                  <v-list >
-                    <v-list-item
-                      class="dropdown"
-                      v-for="(item, index) in items"
-                      :key="index"
-                      @click="filter = item.title"
-                    >
-                      <v-list-item-title >{{ item.title }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </div>
-            </v-navigation-drawer>
-          </v-card>
-        </v-col>
+        <CrmUserSidebar v-bind:filter="filter" v-bind:items="items"/>
+      <!-- !!!!!! -->
         <v-col cols="8" xs='8' sm='8' md='9'
         >
           <v-row>
@@ -76,9 +38,15 @@
 
 
 <script>
+  import CrmUserSidebar from './CrmUserSidebar.vue'
   export default {
+     created() {
+      console.log("фильтр:")
+    },
+    components: {CrmUserSidebar},
     data() { 
       return {
+        filter: "All users",
         items: [
           { title: 'All users' },
           { title: 'Admin' },
@@ -86,7 +54,6 @@
           { title: 'Client' },
           { title: 'Guest' },
         ],
-        filter: "All users"
       }
     },
     computed: {
@@ -102,17 +69,17 @@
         if (this.filter === 'Editor') {return this.crmUsers.filter(t => t.role === 'Editor')}
         if (this.filter === 'Client') {return this.crmUsers.filter(t => t.role === 'Client')}
         return this.crmUsers.filter(t => t.role === 'Guest')
-      }
+      },
     },
   }
 </script>
 
 <style scoped>
   .dropdown{
-    background-color: coral;
+    background-color: rgb(65, 217, 255);
   }
   .dropdown:hover{
-    background-color: darksalmon;
+    background-color: rgb(15 102 231);
     cursor: pointer;
   }
   .card__name {
@@ -136,5 +103,9 @@
   }
   .menu {
     padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 50px;
+    padding-left: 50px;
   }
 </style>
