@@ -14,21 +14,32 @@
               width="100%"
               permanent
             >
-              <!-- <v-list>
-                <v-list-item
-                  v-for="([icon, text], i) in items"
-                  :key="i"
-                  link
-                >
-                  <v-list-item-icon>
-                    <v-icon>{{ icon }}</v-icon>
-                  </v-list-item-icon>
+            <!-- menu button-->
+              <div class="text-center pointer mt-3" >
+                <v-menu >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      color="primary"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      Select by role
+                    </v-btn>
+                  </template>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list> -->
+                  <v-list>
+                    <v-list-item class="pointer"
+                      v-for="(item, i) in items"
+                      :key="i"
+                      @click="filter = item.title"
+                    >
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+              <!-- END menu button-->
             </v-navigation-drawer>
           </v-card>
         </v-col>
@@ -36,10 +47,10 @@
         >
           <v-row>
             <v-col  cols="6" xs='6' sm='6' md='4'
-              v-for="crmUser in crmUsers"
+              v-for="crmUser in filteredRole"
               :key="crmUser.id">
               <v-card
-                class="mx-auto"
+                class="mx-auto card"
                 max-width="344"
               >
                 <v-img
@@ -69,10 +80,13 @@
     data() { 
       return {
         items: [
-          ['mdi-email', 'Inbox'],
-          ['mdi-account-supervisor-circle', 'Supervisors'],
-          ['mdi-clock-start', 'Clock-in'],
+          { title: 'All users' },
+          { title: 'Admin' },
+          { title: 'Editor' },
+          { title: 'Client' },
+          { title: 'Guest' },
         ],
+        filter: "All users"
       }
     },
     computed: {
@@ -81,8 +95,16 @@
       },
       crmUsers() {
         return this.$store.getters.crmUsers
+      },
+      filteredRole() {
+        if (this.filter === "All users") {return this.crmUsers}
+        if (this.filter === "Guest") {return this.crmUsers.filter(el => el.role ==="Guest")}
+        if (this.filter === "Admin") {return this.crmUsers.filter(el => el.role === "Admin")}
+        if (this.filter === "Editor") {return this.crmUsers.filter(el => el.role === "Editor")}
+        return this.crmUsers.filter(el => el.role === "Client")
       }
-    }
+
+    },
   }
 </script>
 
@@ -102,5 +124,11 @@
   .card__describe {
     color: black;
     font-size: 16px;
+  }
+  .pointer:hover {
+    cursor: pointer;
+  }
+  .card {
+    height: 100% ;
   }
 </style>
